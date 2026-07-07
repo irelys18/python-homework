@@ -15,7 +15,7 @@ def calc(a, b, operation="multiply"):
             return a + b
         
         elif operation == "subtract":
-            return a - b
+            return round(a - b, 1)
         
         elif operation == "multiply":
             return a * b
