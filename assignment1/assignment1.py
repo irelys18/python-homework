@@ -124,7 +124,7 @@ print(student_scores("best", Ana = 90, Carlos = 85, Juan = 98))
 
 # Task 8
 def titleize(title):
-    little_words = ["a", "on", "an", "the", "of", "and", "os", "in"]
+    little_words = ["a", "on", "an", "the", "of", "and", "is", "in"]
 
     words = title.split()
 
