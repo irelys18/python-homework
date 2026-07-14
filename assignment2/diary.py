@@ -7,7 +7,7 @@ try:
 
         while True:
             if first_prompt:
-                entry = input("What happended today? ")
+                entry = input("What happened today? ")
                 print(repr(entry))
                 first_prompt = False
             else:
@@ -31,3 +31,6 @@ except Exception as e:
     if message:
         print(f"Exception message: {message}")
     print(f"Stack trace: {stack_trace}")
+
+
+

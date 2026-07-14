@@ -134,9 +134,9 @@ def read_csv_file(filename):
         for row in reader:
             rows.append(tuple(row))
 
-            data["rows"] = rows
+        data["rows"] = rows
             
-        return data
+    return data
     
 def read_minutes():
     minutes1 = read_csv_file("../csv/minutes1.csv")
@@ -183,7 +183,7 @@ print(minutes_list)
 
 # Task 15
 def write_sorted_list():
-    minutes_list.sort(key=lambda x: x[1])
+    sorted_minutes = sorted(key=lambda x: x[1])
 
     sorted_list = list(
         map(
