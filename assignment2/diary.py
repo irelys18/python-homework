@@ -8,12 +8,10 @@ try:
         while True:
             if first_prompt:
                 entry = input("What happened today? ")
-                print(repr(entry))
                 first_prompt = False
             else:
                 entry = input("What else? ")
-                print(repr(entry))
-
+                
             diary.write(entry + "\n")
 
             if entry == "done for now":

@@ -183,12 +183,12 @@ print(minutes_list)
 
 # Task 15
 def write_sorted_list():
-    sorted_minutes = sorted(key=lambda x: x[1])
+    sorted_minutes = sorted(minutes_list, key=lambda x: x[1])
 
-    sorted_list = list(
+    converted_list = list(
         map(
             lambda x: (x[0], datetime.strftime(x[1], "%B %d, %Y")),
-            minutes_list
+            sorted_minutes
         )
     )
 
@@ -196,10 +196,9 @@ def write_sorted_list():
         writer = csv.writer(file)
 
         writer.writerow(minutes1["fields"])
-                        
-        writer.writerows(sorted_list)
+        writer.writerows(converted_list)
 
-    return sorted_list
+    return converted_list
 
 sorted_minutes = write_sorted_list()
 print(sorted_minutes)
