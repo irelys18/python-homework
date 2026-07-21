@@ -1,15 +1,10 @@
 # Task 3
 import csv
 
-employees = []
-
 with open("../csv/employees.csv", newline="") as file:
-    reader = csv.reader(file)
+    reader = list(csv.reader(file))
 
-    for row in reader:
-        employees.append(row)
-
-names = [row[0] + " " + row[1] for row in employees[1:]]
+names = [row[0] + " " + row[1] for row in reader[1:]]
 
 print(names)
 

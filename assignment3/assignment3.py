@@ -9,7 +9,7 @@ def logger_decorator(func):
         result = func(*args, **kwargs)
 
         logger.info(f"function: {func.__name__}")
-        logger.info(f"positional parameters: {args if args else 'none'}")
+        logger.info(f"positional parameters: {list(args) if args else 'none'}")
         logger.info(f"keyword parameters: {kwargs if kwargs else 'none'}")
         logger.info(f"return: {result}")
         logger.info("")
