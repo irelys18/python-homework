@@ -4,7 +4,7 @@ import pandas as pd
 data = {
     'Name': ['Alice', 'Bob', 'Charlie'],
     'Age': [25, 30, 35],
-    'City': ['New York', 'Los Angeles', 'Chicago']  # "unknown" is not numeric
+    'City': ['New York', 'Los Angeles', 'Chicago']  
 }
 
 task1_data_frame = pd.DataFrame(data)
@@ -77,6 +77,8 @@ clean_data["Salary"] = pd.to_numeric(
     errors="coerce"
 )
 
+print(clean_data)
+
 #fillna
 clean_data["Age"] = clean_data["Age"].fillna(clean_data["Age"].mean())
 
@@ -86,6 +88,9 @@ print(clean_data)
 
 #datetime
 clean_data["Hire Date"] = pd.to_datetime(clean_data["Hire Date"], errors="coerce")
+clean_data["Hire Date"] = clean_data["Hire Date"].fillna(
+    clean_data["Hire Date"].mode()[0]
+)
 print(clean_data)
 
 # strip whitespace
