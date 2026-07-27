@@ -87,14 +87,20 @@ clean_data["Salary"] = clean_data["Salary"].fillna(clean_data["Salary"].median()
 print(clean_data)
 
 #datetime
-clean_data["Hire Date"] = pd.to_datetime(clean_data["Hire Date"], errors="coerce")
+clean_data["Hire Date"] = clean_data["Hire Date"].str.strip()
+
+clean_data["Hire Date"] = pd.to_datetime(
+    clean_data["Hire Date"], 
+    errors="coerce"
+)
+
 clean_data["Hire Date"] = clean_data["Hire Date"].fillna(
     clean_data["Hire Date"].mode()[0]
 )
 print(clean_data)
 
 # strip whitespace
-clean_data["Name"] = clean_data["Name"].str.strip().str.upper()
+clean_data["Name"] = clean_data["Name"].str.strip()
 clean_data["Department"] = clean_data["Department"].str.strip().str.upper()
 
 print(clean_data)
