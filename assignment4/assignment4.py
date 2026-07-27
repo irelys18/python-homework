@@ -94,9 +94,6 @@ clean_data["Hire Date"] = pd.to_datetime(
     errors="coerce"
 )
 
-clean_data["Hire Date"] = clean_data["Hire Date"].fillna(
-    clean_data["Hire Date"].mode()[0]
-)
 print(clean_data)
 
 # strip whitespace
