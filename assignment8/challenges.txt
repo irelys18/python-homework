@@ -1,4 +1,5 @@
 Task 6 Challenges
 
-One challenge I had was finding the correct elements on the OWASP webpage. I used the browser developer tools to inspect the page and used 
-XPath to find the Top 10 links. I also had to make sure the title and href were stored in dictionaries before creating the CSV file.
+One challenge I had was finding the correct XPath for the OWASP Top 10 links. I used the browser 
+developer tools to inspect the page and find the correct elements. I then used Selenium to extract
+the vulnerability titles and links and saved them to a CSV file.

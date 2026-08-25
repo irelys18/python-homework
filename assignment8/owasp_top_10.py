@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-import pandas as pd
+
 
 url = "https://owasp.org/www-project-top-ten/"
 
@@ -13,20 +13,16 @@ driver = webdriver.Chrome(
 driver.get(url)
 
 # Find the Top 10 links
-elements = driver.find_elements(
-    By.XPATH,
-    "//a[contains(@href, '/Top10/')]"
-)
+elements = driver.find_elements(By.XPATH, "//a")
 
-results = []
+for element in elements:
+    text = element.text.strip()
+    href = element.get_attribute("href")
 
-for element in elements[:10]:
-    results.append({
-        "title": element.text,
-        "href": element.get_attribute("href")
-    })
+    if text:
+        print(text, "->", href)
 
-print(results)
+driver.quit()
 
 # Create DataFrame
 df = pd.DataFrame(results)

@@ -24,26 +24,37 @@ print("Number of search results:", len(books))
 results = []
 
 # Step 5: Extract information from each book
-for book in books:
-    lines = book.text.split("\n")
+books = driver.find_elements(
+    By.CSS_SELECTOR, "li.cp-search-result-item"
+)
 
-    title = lines[0]
-    
-    author = ""
-    for line in lines:
-        if line.startswith("by "):
-            author = line.replace("by ", "")
-            break
+for book in books:
+
+    title = book.find_element(
+        By.CSS_SELECTOR, ".title-content"
+    ).text
+
+    authors = book.find_elements(
+        By.CSS_SELECTOR, ".author-link"
+    )
+
+    author = ";".join(a.text for a in authors)
+
+    format_year = book.find_element(
+        By.CSS_SELECTOR, ".display-info-primary"
+    ).text
 
     results.append({
-        "title": title,
-        "author": author
+        "Title": title,
+        "Author": author,
+        "Format-Year": format_year
     })
 
 print(results)
 
 #Step 6: Create DataFrame from results list
 df = pd.DataFrame(results)
+
 print(df)
 
 # Task 4.1: Write DataFrame to CSV
