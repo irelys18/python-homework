@@ -44,11 +44,11 @@ for book in books:
         By.CSS_SELECTOR, ".display-info-primary"
     ).text
 
-    results.append({
-        "Title": title,
-        "Author": author,
-        "Format-Year": format_year
-    })
+results.append({
+    "Title": title,
+    "Author": author,
+    "Format-Year": format_year
+})
 
 print(results)
 
