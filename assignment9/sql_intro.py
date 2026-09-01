@@ -1,6 +1,5 @@
 import sqlite3
 
-
 def add_publisher(connection, name):
     try:
         existing = connection.execute(
@@ -74,14 +73,8 @@ def add_subscriber(connection, name, address):
 def add_subscription(connection, subscriber_id, magazine_id, expiration_date):
     try:
         existing = connection.execute(
-            """
-            SELECT id
-            FROM subscriptions
-            WHERE subscriber_id = ?
-            AND magazine_id = ?
-            AND expiration_date = ?
-            """,
-            (subscriber_id, magazine_id, expiration_date)
+            "SELECT subscription_id FROM subscriptions WHERE subscriber_id = ? AND magazine_id = ?",
+            (subscriber_id, magazine_id)
         ).fetchone()
 
         if existing:
@@ -117,8 +110,8 @@ try:
     connection.execute("""
         CREATE TABLE IF NOT EXISTS magazines (
             id INTEGER PRIMARY KEY,
-            name TEXT UNIQUE NOT NULL,
-            publisher_id INTEGER,
+            name TEXT NOT NULL UNIQUE,
+            publisher_id INTEGER NOT NULL,
             FOREIGN KEY (publisher_id) REFERENCES publishers(id)
         )
     """)
@@ -133,9 +126,9 @@ try:
 
     connection.execute("""
         CREATE TABLE IF NOT EXISTS subscriptions (
-            id INTEGER PRIMARY KEY,
-            subscriber_id INTEGER,
-            magazine_id INTEGER,
+            subscription_id INTEGER PRIMARY KEY,
+            subscriber_id INTEGER NOT NULL,
+            magazine_id INTEGER NOT NULL,
             expiration_date TEXT NOT NULL,
             FOREIGN KEY (subscriber_id) REFERENCES subscribers(id),
             FOREIGN KEY (magazine_id) REFERENCES magazines(id)
@@ -181,6 +174,23 @@ try:
 
     print("\nSubscriptions:")
     rows = connection.execute("SELECT * FROM subscriptions").fetchall()
+    for row in rows:
+        print(row)
+
+    # Task 4 - Find magazines for a particular publisher
+
+    print("\nMagazines published by Penguin Random House:")
+
+    query = """
+    SELECT magazines.name
+    FROM magazines
+    JOIN publishers
+        ON magazines.publisher_id = publishers.id
+    WHERE publishers.name = ?
+    """
+
+    rows = connection.execute(query, ("Penguin Random House",))
+
     for row in rows:
         print(row)
 

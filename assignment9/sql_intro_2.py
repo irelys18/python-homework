@@ -18,9 +18,13 @@ JOIN products
 
 df = pd.read_sql_query(query, connection)
 
+print("Initial DataFrame:")
 print(df.head())
 
 df["total"] = df["quantity"] * df["price"]
+
+print("\nDataFrame after adding total:")
+print(df.head())
 
 summary = df.groupby("product_id").agg(
     line_item_count=("line_item_id", "count"),
@@ -28,7 +32,13 @@ summary = df.groupby("product_id").agg(
     product_name=("product_name", "first")
 ).reset_index()
 
+print("\nSummary after groupby:")
+print(summary.head())
+
 summary = summary.sort_values("product_name")
+
+print("\nFinal sorted summary:")
+print(summary.head())
 
 print(summary)
 
