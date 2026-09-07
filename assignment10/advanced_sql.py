@@ -7,12 +7,12 @@ cursor = conn.cursor()
 
 sql = """
 SELECT orders.order_id,
-       SUM(products.price * line_items.quantity) AS total_price
+SUM(products.price * line_items.quantity) AS total_price
 FROM orders
 JOIN line_items
-    ON orders.order_id = line_items.order_id
+ON orders.order_id = line_items.order_id
 JOIN products
-    ON line_items.product_id = products.product_id
+ON line_items.product_id = products.product_id
 GROUP BY orders.order_id
 ORDER BY orders.order_id
 LIMIT 5;
@@ -30,16 +30,16 @@ for row in results:
 
 sql = """
 SELECT customers.customer_name,
-       AVG(order_totals.total_price) AS average_total_price
+AVG(order_totals.total_price) AS average_total_price
 FROM customers
 LEFT JOIN (
     SELECT orders.customer_id AS customer_id_b,
            SUM(products.price * line_items.quantity) AS total_price
     FROM orders
     JOIN line_items
-        ON orders.order_id = line_items.order_id
+    ON orders.order_id = line_items.order_id
     JOIN products
-        ON line_items.product_id = products.product_id
+    ON line_items.product_id = products.product_id
     GROUP BY orders.order_id
 ) AS order_totals
 ON customers.customer_id = order_totals.customer_id_b
@@ -67,6 +67,7 @@ try:
         FROM customers
         WHERE customer_name = ?
     """, ("Perez and Sons",))
+
     customer_id = cursor.fetchone()[0]
 
     # Find employee
@@ -75,6 +76,7 @@ try:
         FROM employees
         WHERE first_name = ? AND last_name = ?
     """, ("Miranda", "Harris"))
+
     employee_id = cursor.fetchone()[0]
 
     # Find five least expensive products
@@ -84,6 +86,7 @@ try:
         ORDER BY price
         LIMIT 5
     """)
+
     product_ids = cursor.fetchall()
 
     # Create the order
@@ -104,7 +107,6 @@ try:
             VALUES (?, ?, ?)
         """, (order_id, product_id, 10))
 
-    # Commit the transaction
     conn.commit()
 
     # Display the newly created line items
@@ -132,7 +134,7 @@ except sqlite3.Error as error:
     print("Transaction failed:", error)
 
 
-    # Task 4: Aggregation with HAVING
+# Task 4: Aggregation with HAVING
 
 sql = """
 SELECT employees.employee_id,
@@ -160,7 +162,4 @@ for row in results:
         f"Order Count: {row[3]}"
     )
 
-for row in results:
-    print(row)
-    conn.close()
-
+conn.close()
