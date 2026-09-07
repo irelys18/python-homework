@@ -23,7 +23,7 @@ cursor.execute(sql)
 results = cursor.fetchall()
 
 for row in results:
-    print(row)
+    print(f"Order ID: {row[0]}, Total Price: {row[1]}")
 
 
 # Task 2: Understanding Subqueries
