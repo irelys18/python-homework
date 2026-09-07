@@ -51,7 +51,7 @@ cursor.execute(sql)
 results = cursor.fetchall()
 
 for row in results:
-    print(row)
+    print(f"Customer: {row[0]}, Average Total Price: {row[1]}")
 
 
 # Task 3: Insert Transaction Based on Data
@@ -61,32 +61,29 @@ conn.execute("PRAGMA foreign_keys = 1")
 try:
     conn.execute("BEGIN")
 
-    # Find the customer
+    # Find customer
     cursor.execute("""
         SELECT customer_id
         FROM customers
         WHERE customer_name = ?
     """, ("Perez and Sons",))
-
     customer_id = cursor.fetchone()[0]
 
-    # Find the employee
+    # Find employee
     cursor.execute("""
         SELECT employee_id
         FROM employees
         WHERE first_name = ? AND last_name = ?
     """, ("Miranda", "Harris"))
-
     employee_id = cursor.fetchone()[0]
 
-    # Find the 5 least expensive products
+    # Find five least expensive products
     cursor.execute("""
         SELECT product_id
         FROM products
         ORDER BY price
         LIMIT 5
     """)
-
     product_ids = cursor.fetchall()
 
     # Create the order
@@ -98,7 +95,7 @@ try:
 
     order_id = cursor.fetchone()[0]
 
-    # Add 10 of each product to the order
+    # Add 10 of each product
     for product in product_ids:
         product_id = product[0]
 
@@ -107,10 +104,10 @@ try:
             VALUES (?, ?, ?)
         """, (order_id, product_id, 10))
 
-    # Save the transaction
+    # Commit the transaction
     conn.commit()
 
-    # Display the new line items
+    # Display the newly created line items
     cursor.execute("""
         SELECT line_items.line_item_id,
                line_items.quantity,
@@ -124,7 +121,11 @@ try:
     results = cursor.fetchall()
 
     for row in results:
-        print(row)
+        print(
+            f"Line Item ID: {row[0]}, "
+            f"Quantity: {row[1]}, "
+            f"Product: {row[2]}"
+        )
 
 except sqlite3.Error as error:
     conn.rollback()
@@ -152,7 +153,14 @@ cursor.execute(sql)
 results = cursor.fetchall()
 
 for row in results:
-    print(row)
+    print(
+        f"Employee ID: {row[0]}, "
+        f"First Name: {row[1]}, "
+        f"Last Name: {row[2]}, "
+        f"Order Count: {row[3]}"
+    )
 
+for row in results:
+    print(row)
     conn.close()
 
