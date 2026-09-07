@@ -1,0 +1,14 @@
+Task 6 Challenges
+
+
+One challenge I had was finding the correct elements 
+on the web pages using Selenium. At first, my XPath 
+for the OWASP page selected too many links, including 
+navigation links. I solved this by using a more specific 
+XPath that targets only the A01 through A10 vulnerabilities.
+Another challenge was making sure the book scraper collected 
+the title, author, and format-year information correctly. 
+I solved this by finding the specific elements inside each 
+book result and storing the information in dictionaries before 
+creating the DataFrame.
+
