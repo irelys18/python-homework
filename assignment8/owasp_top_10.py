@@ -1,33 +1,42 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+import pandas as pd
 
+driver = webdriver.Chrome()
 
-url = "https://owasp.org/www-project-top-ten/"
+driver.get("https://owasp.org/Top10/2025/")
 
-driver = webdriver.Chrome(
-    service=Service(ChromeDriverManager().install())
-)
+results = []
 
-driver.get(url)
+# Find all links
+links = driver.find_elements(By.CSS_SELECTOR, "a")
 
-# Find the Top 10 links
-elements = driver.find_elements(By.XPATH, "//a")
+for link in links:
+    text = link.text.strip()
 
-for element in elements:
-    text = element.text.strip()
-    href = element.get_attribute("href")
+    # Keep only A01 through A10
+    if text.startswith("A01:2025") or \
+       text.startswith("A02:2025") or \
+       text.startswith("A03:2025") or \
+       text.startswith("A04:2025") or \
+       text.startswith("A05:2025") or \
+       text.startswith("A06:2025") or \
+       text.startswith("A07:2025") or \
+       text.startswith("A08:2025") or \
+       text.startswith("A09:2025") or \
+       text.startswith("A10:2025"):
 
-    if text:
-        print(text, "->", href)
+        results.append({
+            "Title": text,
+            "href": link.get_attribute("href")
+        })
 
-driver.quit()
+print(results)
 
-# Create DataFrame
 df = pd.DataFrame(results)
 
-# Save to CSV
+print(df)
+
 df.to_csv("owasp_top_10.csv", index=False)
 
 driver.quit()

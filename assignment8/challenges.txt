@@ -1,5 +1,14 @@
 Task 6 Challenges
 
-One challenge I had was finding the correct XPath for the OWASP Top 10 links. I used the browser 
-developer tools to inspect the page and find the correct elements. I then used Selenium to extract
-the vulnerability titles and links and saved them to a CSV file.
+
+One challenge I had was finding the correct elements 
+on the web pages using Selenium. At first, my XPath 
+for the OWASP page selected too many links, including 
+navigation links. I solved this by using a more specific 
+XPath that targets only the A01 through A10 vulnerabilities.
+Another challenge was making sure the book scraper collected 
+the title, author, and format-year information correctly. 
+I solved this by finding the specific elements inside each 
+book result and storing the information in dictionaries before 
+creating the DataFrame.
+
