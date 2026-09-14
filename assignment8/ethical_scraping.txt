@@ -1,0 +1,9 @@
+Task 5: Ethical Web Scraping
+Wikipedia restricts crawlers from areas such as /w/, /api/, /trap/, and some Special pages. It also blocks access to some pages about 
+deletions, copyright, spam, and administrative discussions.
+
+Yes, some user agents, such as MJ12bot, wget, and WebReaper, are completely blocked. SemrushBot has a 5-second delay between requests.
+
+Websites use robots.txt to communicate rules to automated web crawlers about which areas they should or should not access.
+It helps websites manage crawler traffic, protect resources, and prevent bots from accessing sensitive or unnecessary areas.
+Following robots.txt is an important part of responsible and ethical web scraping.

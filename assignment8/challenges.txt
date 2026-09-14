@@ -1,0 +1,5 @@
+Task 6 Challenges
+
+One challenge I had was finding the correct XPath for the OWASP Top 10 links. I used the browser 
+developer tools to inspect the page and find the correct elements. I then used Selenium to extract
+the vulnerability titles and links and saved them to a CSV file.
